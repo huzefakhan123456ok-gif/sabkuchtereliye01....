@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Heer 💖</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(to bottom right,#ff9ecf,#ffc0cb);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+text-align:center;
+overflow:hidden;
+}
+
+/* Floating Hearts */
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-110vh);opacity:0;}
+}
+
+button{
+padding:12px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+#yes{
+background:#ff1493;
+color:white;
+}
+
+#yes:hover{
+transform:scale(1.1);
+}
+
+#no{
+background:white;
+color:#ff1493;
+position:fixed;
+}
+
+.next-page{
+display:none;
+flex-direction:column;
+align-items:center;
+}
+
+.love-video{
+width:90%;
+max-width:400px;
+margin-top:20px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.insta{
+margin-top:20px;
+font-weight:bold;
+}
+
+.insta a{
+color:#d6249f;
+text-decoration:none;
+}
+
+.footer{
+position:fixed;
+bottom:5px;
+width:100%;
+text-align:center;
+font-size:13px;
+color:white;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Song -->
+<audio id="bgSong" autoplay loop muted playsinline>
+<source src="Stephen Sanchez, Em Beihold -  Until I Found You (Lyrics)_2 (1).mp3" type="audio/mpeg">
+</audio>
+
+<!-- FIRST PAGE -->
+<div id="firstPage">
+<h1>Heer, Will you be my Valentine? 💖</h1>
+<button id="yes">YES 💕</button>
+
+<div class="insta">
+
+</div>
+</div>
+
+<button id="no">NO 😜</button>
+
+<!-- SECOND PAGE -->
+<div class="next-page" id="secondPage">
+<h1></h1>
+<h1>Yay!!! 🎉💖</h1>
+<h1>Best decision ever ❤️</h1>
+<p><b>We will meet soon</b></p>
+<!-- Image replacing video -->
+<img class="love-video" src="istockphoto-1370729786-612x612.jpg" alt="Love Image">
+</div>
+
+<script>
+const song=document.getElementById("bgSong");
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const first=document.getElementById("firstPage");
+const second=document.getElementById("secondPage");
+
+/* Auto Unmute on slight interaction */
+function enableSound(){
+song.muted=false;
+song.play().catch(()=>{});
+}
+
+document.addEventListener("mousemove",enableSound,{once:true});
+document.addEventListener("touchstart",enableSound,{once:true});
+document.addEventListener("click",enableSound,{once:true});
+
+/* NO button move */
+no.style.left="60%";
+no.style.top="60%";
+
+function move(){
+no.style.left=Math.random()*(window.innerWidth-100)+"px";
+no.style.top=Math.random()*(window.innerHeight-50)+"px";
+}
+
+document.addEventListener("mousemove",function(e){
+let r=no.getBoundingClientRect();
+if(Math.abs(e.clientX-(r.left+r.width/2))<80 &&
+Math.abs(e.clientY-(r.top+r.height/2))<50){
+move();
+}
+});
+
+no.addEventListener("touchstart",move);
+
+/* YES click */
+yes.onclick=function(){
+first.style.display="none";
+no.style.display="none";
+second.style.display="flex";
+};
+
+/* Floating Hearts */
+function heart(){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+15)+"px";
+h.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+}
+
+setInterval(heart,300);
+</script>
+
+</body>
+</html>
